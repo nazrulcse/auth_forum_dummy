@@ -11,7 +11,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806170434) do
+ActiveRecord::Schema.define(version: 20150813153626) do
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
+    t.text     "body",          limit: 65535
+    t.string   "resource_id",   limit: 255,   null: false
+    t.string   "resource_type", limit: 255,   null: false
+    t.integer  "author_id",     limit: 4
+    t.string   "author_type",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "auth_forum_carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "auth_forum_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "auth_forum_line_items", force: :cascade do |t|
+    t.integer  "cart_id",    limit: 4
+    t.integer  "product_id", limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "quantity",   limit: 4, default: 1
+  end
+
+  create_table "auth_forum_posts", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.string   "author",      limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "user_id",     limit: 4
+    t.boolean  "is_approved", limit: 1,     default: false
+  end
+
+  create_table "auth_forum_products", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.decimal  "price",                     precision: 10
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "image",       limit: 255
+    t.integer  "category_id", limit: 4
+  end
 
   create_table "forem_categories", force: :cascade do |t|
     t.string   "name",       limit: 255,             null: false

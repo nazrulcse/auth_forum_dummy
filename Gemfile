@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-gem 'auth_forum', :github => 'nazrulcse/auth_forum'
+gem 'auth_forum', :github => 'nazrulcse/auth_forum', :branch => 'master'
 gem 'forem', :github => 'radar/forem', :branch => 'rails4'
 gem 'devise'
 gem 'forem-bootstrap', :github => "radar/forem-bootstrap", :branch => "master"
@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'mysql2'
+gem 'activeadmin', github: 'activeadmin'
+gem "rmagick"
+gem "carrierwave"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
