@@ -30,6 +30,8 @@ gem 'mysql2'
 gem 'activeadmin', github: 'activeadmin'
 gem "rmagick"
 gem "carrierwave"
+gem 'carmen-rails', '~> 1.0.0'
+gem 'carmen'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
