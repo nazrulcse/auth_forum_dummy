@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813153626) do
+ActiveRecord::Schema.define(version: 20150829173720) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -28,6 +28,24 @@ ActiveRecord::Schema.define(version: 20150813153626) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
+  create_table "auth_forum_admin_users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "auth_forum_admin_users", ["email"], name: "index_auth_forum_admin_users_on_email", unique: true, using: :btree
+  add_index "auth_forum_admin_users", ["reset_password_token"], name: "index_auth_forum_admin_users_on_reset_password_token", unique: true, using: :btree
+
   create_table "auth_forum_carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,12 +57,47 @@ ActiveRecord::Schema.define(version: 20150813153626) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "auth_forum_events", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.integer  "product_id",  limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "auth_forum_line_items", force: :cascade do |t|
     t.integer  "cart_id",    limit: 4
     t.integer  "product_id", limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "quantity",   limit: 4, default: 1
+    t.integer  "order_id",   limit: 4
+  end
+
+  create_table "auth_forum_orders", force: :cascade do |t|
+    t.string   "card_holder_name", limit: 255
+    t.string   "email",            limit: 255
+    t.boolean  "is_guest",                     default: false
+    t.integer  "user_id",          limit: 4
+    t.integer  "card_number",      limit: 4
+    t.string   "first_name",       limit: 255
+    t.string   "last_name",        limit: 255
+    t.string   "s_address",        limit: 255
+    t.string   "s_country",        limit: 255
+    t.string   "s_city",           limit: 255
+    t.string   "s_state",          limit: 255
+    t.integer  "s_zip",            limit: 4
+    t.string   "b_name",           limit: 255
+    t.string   "b_address",        limit: 255
+    t.string   "b_country",        limit: 255
+    t.string   "b_state",          limit: 255
+    t.string   "b_city",           limit: 255
+    t.integer  "b_zip",            limit: 4
+    t.integer  "status_id",        limit: 4
+    t.boolean  "same_address",                 default: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
   end
 
   create_table "auth_forum_posts", force: :cascade do |t|
@@ -54,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150813153626) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "user_id",     limit: 4
-    t.boolean  "is_approved", limit: 1,     default: false
+    t.boolean  "is_approved",               default: false
   end
 
   create_table "auth_forum_products", force: :cascade do |t|
@@ -116,7 +169,7 @@ ActiveRecord::Schema.define(version: 20150813153626) do
     t.datetime "updated_at"
     t.integer  "reply_to_id", limit: 4
     t.string   "state",       limit: 255,   default: "pending_review"
-    t.boolean  "notified",    limit: 1,     default: false
+    t.boolean  "notified",                  default: false
   end
 
   add_index "forem_posts", ["reply_to_id"], name: "index_forem_posts_on_reply_to_id", using: :btree
@@ -135,9 +188,9 @@ ActiveRecord::Schema.define(version: 20150813153626) do
     t.string   "subject",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "locked",       limit: 1,   default: false,            null: false
-    t.boolean  "pinned",       limit: 1,   default: false
-    t.boolean  "hidden",       limit: 1,   default: false
+    t.boolean  "locked",                   default: false,            null: false
+    t.boolean  "pinned",                   default: false
+    t.boolean  "hidden",                   default: false
     t.datetime "last_post_at"
     t.string   "state",        limit: 255, default: "pending_review"
     t.integer  "views_count",  limit: 4,   default: 0
@@ -176,9 +229,9 @@ ActiveRecord::Schema.define(version: 20150813153626) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
-    t.boolean  "forem_admin",            limit: 1,   default: false
+    t.boolean  "forem_admin",                        default: false
     t.string   "forem_state",            limit: 255, default: "pending_review"
-    t.boolean  "forem_auto_subscribe",   limit: 1,   default: false
+    t.boolean  "forem_auto_subscribe",               default: false
     t.string   "name",                   limit: 255
   end
 
