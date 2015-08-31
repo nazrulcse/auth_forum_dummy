@@ -24,10 +24,11 @@ gem 'auth_forum', :github => 'nazrulcse/auth_forum'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 gem 'forem', :github => "radar/forem", :branch => "rails4"
 gem 'forem-bootstrap', :github => "radar/forem-bootstrap", :branch => "master"
 gem 'activeadmin', github: 'gregbell/active_admin'
-#gem 'carmen-rails', '~> 1.0.0'
+gem 'carmen-rails', '~> 1.0.0'
 gem 'carmen'
 
 group :development, :test do
