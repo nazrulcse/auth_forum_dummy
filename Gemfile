@@ -30,11 +30,15 @@ gem 'forem-bootstrap', :github => "radar/forem-bootstrap", :branch => "master"
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'carmen-rails', '~> 1.0.0'
 gem 'carmen'
+gem 'json', '1.8.3'
 
-group :development, :test do
+group :development do
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
