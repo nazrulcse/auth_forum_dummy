@@ -4,5 +4,6 @@ ActionMailer::Base.smtp_settings = {
     :port => 587,
     :domain => "gmail.com",
     :password => "codejam2015",
-    :authentication => "plain"
+    :authentication => "plain",
+    :enable_starttls_auto => true
 }
