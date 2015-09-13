@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/nazrulcse/auth_forum.git
-  revision: 2633fa97f232673e349c1d90d87c97947f2e0a39
+  revision: 83208a0f291a10dcd201660626e35e4fa7a792fd
   specs:
     auth_forum (0.0.2)
       activeadmin
