@@ -19,7 +19,8 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-gem 'auth_forum', :github => 'nazrulcse/auth_forum'
+#gem 'auth_forum', :github => 'nazrulcse/auth_forum'
+gem 'auth_forum', :path => '/home/nazrul/Development/Projects/auth_forum'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
